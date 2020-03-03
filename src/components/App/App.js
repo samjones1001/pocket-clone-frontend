@@ -3,8 +3,8 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      App Component
+    <div className="App" data-test="component-app">
+      App Component!
     </div>
   );
 }
