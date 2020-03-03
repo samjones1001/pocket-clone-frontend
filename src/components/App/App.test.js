@@ -1,13 +1,19 @@
 import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import EnzymeAdapter from 'enzyme-adapter-react-16';
+import { shallow } from 'enzyme';
 
 import App from './App';
+import ArticleContainer from '../ArticleContainer/ArticleContainer';
 
-Enzyme.configure({ adapter: new EnzymeAdapter() });
+describe("App", () => {
+  it('renders without crashing', () => {
+    const wrapper = shallow(<App />);
+    const appComponent = wrapper.find("[data-test='component-app']");
+    expect(appComponent.exists()).toBe(true);
+  });
 
-it('renders without crashing', () => {
-  const wrapper = shallow(<App />);
-  const appComponent = wrapper.find("[data-test='component-app']");
-  expect(appComponent.exists()).toBe(true);
-});
+  it('renders an ArticleContainer component', () => {
+    const wrapper = shallow(<App />);
+    const articleContainerComponent = wrapper.find(ArticleContainer);
+    expect(articleContainerComponent.exists()).toBe(true);
+  });
+})
