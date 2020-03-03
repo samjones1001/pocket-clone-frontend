@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import App from './App';
-import ArticleContainer from '../ArticleContainer/ArticleContainer';
+import ReadingList from '../ReadingList/ReadingList';
 
 describe("App", () => {
   it('renders without crashing', () => {
@@ -11,9 +11,9 @@ describe("App", () => {
     expect(appComponent.exists()).toBe(true);
   });
 
-  it('renders an ArticleContainer component', () => {
+  it('renders a ReadingList component', () => {
     const wrapper = shallow(<App />);
-    const articleContainerComponent = wrapper.find(ArticleContainer);
-    expect(articleContainerComponent.exists()).toBe(true);
+    const readingListComponent = wrapper.find(ReadingList);
+    expect(readingListComponent.exists()).toBe(true);
   });
 })

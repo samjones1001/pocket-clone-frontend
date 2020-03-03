@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ArticleContainer from './ArticleContainer';
+import ReadingList from './ReadingList';
 
-describe('ArticleContainer', () => {
+describe('ReadingList', () => {
   let wrapper;
   const articles = [
     {url: 'www.example.com'},
@@ -12,12 +12,12 @@ describe('ArticleContainer', () => {
   ];
 
   beforeEach(() => {
-    wrapper = shallow(<ArticleContainer articles={ articles }/>);
+    wrapper = shallow(<ReadingList articles={ articles }/>);
   })
 
   it('renders without crashing', () => {
-    const articleComponent = wrapper.find("[data-test='component-article-container']");
-    expect(articleComponent.exists()).toBe(true);
+    const readingList = wrapper.find("[data-test='component-reading-list']");
+    expect(readingList.exists()).toBe(true);
   });
 
   it('renders a list of passed articles', () => {
