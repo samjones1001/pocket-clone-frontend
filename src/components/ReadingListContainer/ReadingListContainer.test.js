@@ -2,19 +2,19 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import moxios from 'moxios';
 
-import ReadingListHOC from './ReadingListHOC';
+import ReadingListContainer from './ReadingListContainer';
 import ReadingList from '../ReadingList/ReadingList';
 
 
-describe("ReadingListHOC", () => {
+describe("ReadingListContainer", () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<ReadingListHOC />);
-    const rlhocComponent = wrapper.find("[data-test='component-reading-list-hoc']");
+    const wrapper = shallow(<ReadingListContainer />);
+    const rlhocComponent = wrapper.find("[data-test='component-reading-list-container']");
     expect(rlhocComponent.exists()).toBe(true);
   });
 
   it('renders a ReadingList component', () => {
-    const wrapper = shallow(<ReadingListHOC />);
+    const wrapper = shallow(<ReadingListContainer />);
     const readingListComponent = wrapper.find(ReadingList);
     expect(readingListComponent.exists()).toBe(true);
   });
@@ -24,7 +24,7 @@ describe("ReadingListHOC", () => {
 
     beforeEach(() => {
       moxios.install();
-      wrapper = mount(<ReadingListHOC />);
+      wrapper = mount(<ReadingListContainer />);
     });
 
     afterEach(() => {
@@ -52,7 +52,7 @@ describe("ReadingListHOC", () => {
 
     beforeEach(() => {
       moxios.install();
-      wrapper = mount(<ReadingListHOC />);
+      wrapper = mount(<ReadingListContainer />);
     });
 
     afterEach(() => {

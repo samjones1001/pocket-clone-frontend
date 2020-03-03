@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import './ReadingListHOC.css';
+import './ReadingListContainer.css';
 import axios from 'axios';
 
 import ReadingList from '../ReadingList/ReadingList'
 
-class ReadingListHOC extends Component {
+class ReadingListContainer extends Component {
   constructor() {
     super();
 
@@ -42,11 +42,11 @@ class ReadingListHOC extends Component {
     const { articles } = this.state;
 
     return (
-      <div data-test="component-reading-list-hoc">
+      <div data-test="component-reading-list-container">
         <ReadingList articles={ articles } handleInputSubmit={ this.handleInputSubmit }/>
       </div>
     );
   }
 }
 
-export default ReadingListHOC;
+export default ReadingListContainer;
