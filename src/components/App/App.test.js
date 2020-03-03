@@ -5,6 +5,7 @@ import moxios from 'moxios';
 
 import App from './App';
 import ReadingList from '../ReadingList/ReadingList';
+import Input from '../Input/Input';
 
 describe("App", () => {
   it('renders without crashing', () => {
@@ -17,6 +18,21 @@ describe("App", () => {
     const wrapper = shallow(<App />);
     const readingListComponent = wrapper.find(ReadingList);
     expect(readingListComponent.exists()).toBe(true);
+  });
+
+  it('renders an Input component', () => {
+    const wrapper = shallow(<App />);
+    const inputComponent = wrapper.find(Input);
+    expect(inputComponent.exists()).toBe(true);
+  });
+
+  it('updates state on change in search component', () => {
+    const wrapper = mount(<App />);
+    const newValue = "testing component";
+    const inputElement = wrapper.find("[data-test='input-textfield']")
+
+    inputElement.simulate('change', { target: { value: newValue }});
+    expect(wrapper.state().urlToAdd).toEqual(newValue);
   });
 
   describe('makes a request to the pocketClone api', () => {
