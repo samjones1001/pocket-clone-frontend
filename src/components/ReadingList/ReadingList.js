@@ -1,18 +1,20 @@
 import React from 'react';
 import './ReadingList.css';
 
-import Article from '../Article/Article.js'
+import Articles from '../Articles/Articles'
+import Input from '../Input/Input'
 
 const ReadingList = (props) => {
-  const { articles } = props;
+  const { articles, handleInputSubmit } = props;
 
   return (
     <div data-test="component-reading-list">
-      { articles.map((article, index) => (
-        <div data-test="article-div" key={index}>
-          <Article { ...article }/>
-        </div>
-      ))}
+      <Articles articles={ articles }/>
+      <Input
+        placeholderText="url"
+        buttonText="Add To Reading List"
+        handleSubmit={ handleInputSubmit }
+      />
     </div>
   );
 }
