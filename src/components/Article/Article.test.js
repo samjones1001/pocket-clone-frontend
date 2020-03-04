@@ -5,16 +5,22 @@ import Article from './Article';
 
 describe('Article', () => {
   let wrapper;
-  let url;
+  let title;
 
   beforeEach(() => {
-    url = 'www.example.com';
-    wrapper = shallow(<Article url={ url }/>);
+    let url = 'www.example.com';
+    title = 'an example website'
+
+    wrapper = shallow(
+      <Article
+        url={ 'www.example.com' }
+        title={ 'an example website' }
+      />);
   });
 
-  it('renders the passed url', () => {
+  it('renders the passed title', () => {
     let linkElement = wrapper.find("[data-test='article-link']");
-    expect(linkElement.text()).toEqual(url);
+    expect(linkElement.text()).toEqual(title);
   });
 
   it(`renders the delete button`, () => {
