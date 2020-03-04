@@ -19,7 +19,7 @@ describe("ReadingListContainer", () => {
     expect(readingListComponent.exists()).toBe(true);
   });
 
-  describe('makes GET requests to the pocketClone api', () => {
+  describe('makes requests to the pocketClone api', () => {
     let wrapper
 
     beforeEach(() => {
@@ -32,7 +32,7 @@ describe("ReadingListContainer", () => {
     });
 
     describe('on sucess', () => {
-      it('retrieves a list of saved articles on page load and stores them in state', (done) => {
+      it('GET retrieves a list of saved articles on page load and stores them in state', (done) => {
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -44,23 +44,8 @@ describe("ReadingListContainer", () => {
           });
         });
       });
-    });
-  });
 
-  describe('makes POST requests to the pocketClone api', () => {
-    let wrapper
-
-    beforeEach(() => {
-      moxios.install();
-      wrapper = mount(<ReadingListContainer />);
-    });
-
-    afterEach(() => {
-      moxios.uninstall();
-    });
-
-    describe('on sucess', () => {
-      it('retrieves a list of saved articles on page load and stores them in state', (done) => {
+      it('POST creates a new article and saves it in state', (done) => {
         moxios.wait(() => {
           const request = moxios.requests.at(0);
           request.respondWith({

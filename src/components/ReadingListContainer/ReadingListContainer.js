@@ -21,6 +21,10 @@ class ReadingListContainer extends Component {
     this.makeApiPostRequest(urlToAdd);
   }
 
+  handleArticleDelete = (id) => {
+    this.makeApiDeleteRequest(id);
+  }
+
   makeApiGetRequest = () => {
     axios.get('https://protected-harbor-70609.herokuapp.com/api/articles')
     .then((response) => {
@@ -38,12 +42,24 @@ class ReadingListContainer extends Component {
     });
   }
 
+  makeApiDeleteRequest = (id) => {
+    axios.delete(`https://protected-harbor-70609.herokuapp.com/api/articles/${id}`)
+    .then((response) => {
+      this.setState({ articles: this.state.articles.filter((item, index) => item.id !== id) })
+    }).catch((error) => {
+    });
+  }
+
   render() {
     const { articles } = this.state;
 
     return (
       <div data-test="component-reading-list-container">
-        <ReadingList articles={ articles } handleInputSubmit={ this.handleInputSubmit }/>
+        <ReadingList
+          articles={ articles }
+          handleInputSubmit={ this.handleInputSubmit }
+          handleArticleDelete={ this.handleArticleDelete }
+        />
       </div>
     );
   }
