@@ -1,14 +1,14 @@
 import React from 'react';
-import { shallow} from 'enzyme';
+import { mount } from 'enzyme';
 
 import App from './App';
-import ReadingListContainer from '../ReadingListContainer/ReadingListContainer';
+import WrappedReadingList from '../ReadingList/ReadingList';
 
 describe("App", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<App />)
+    wrapper = mount(<App />)
   });
 
   it('renders without crashing', () => {
@@ -16,8 +16,8 @@ describe("App", () => {
     expect(appComponent.exists()).toBe(true);
   });
 
-  it('renders a ReadingListHOC component', () => {
-    const readingListComponent = wrapper.find(ReadingListContainer);
+  it('renders a WrappedReadingList component', () => {
+    const readingListComponent = wrapper.find("[data-test='component-reading-list']");
     expect(readingListComponent.exists()).toBe(true);
   });
 });

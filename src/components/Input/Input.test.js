@@ -50,7 +50,7 @@ describe('Input', () => {
     inputElement.simulate('change', { target: { value: newValue }});
     expect(wrapper.state().content).toEqual(newValue);
   });
-
+  
   it('resets state on button click', () => {
     const newValue = "testing component";
     const inputElement = wrapper.find("[data-test='input-textfield']");
