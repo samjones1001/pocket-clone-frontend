@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
 
-import ReadingListHOC from '../ReadingListHOC/ReadingListHOC'
+import ReadingListContainer from '../ReadingListContainer/ReadingListContainer'
 
 const App = () => {
-  return (<div data-test="component-app"><ReadingListHOC /></div>);
+  return (<div data-test="component-app"><ReadingListContainer /></div>);
 }
 
 export default App;

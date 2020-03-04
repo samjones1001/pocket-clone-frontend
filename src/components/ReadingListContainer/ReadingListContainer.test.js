@@ -2,29 +2,29 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import moxios from 'moxios';
 
-import ReadingListHOC from './ReadingListHOC';
+import ReadingListContainer from './ReadingListContainer';
 import ReadingList from '../ReadingList/ReadingList';
 
 
-describe("ReadingListHOC", () => {
+describe("ReadingListContainer", () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<ReadingListHOC />);
-    const rlhocComponent = wrapper.find("[data-test='component-reading-list-hoc']");
+    const wrapper = shallow(<ReadingListContainer />);
+    const rlhocComponent = wrapper.find("[data-test='component-reading-list-container']");
     expect(rlhocComponent.exists()).toBe(true);
   });
 
   it('renders a ReadingList component', () => {
-    const wrapper = shallow(<ReadingListHOC />);
+    const wrapper = shallow(<ReadingListContainer />);
     const readingListComponent = wrapper.find(ReadingList);
     expect(readingListComponent.exists()).toBe(true);
   });
 
-  describe('makes GET requests to the pocketClone api', () => {
+  describe('makes requests to the pocketClone api', () => {
     let wrapper
 
     beforeEach(() => {
       moxios.install();
-      wrapper = mount(<ReadingListHOC />);
+      wrapper = mount(<ReadingListContainer />);
     });
 
     afterEach(() => {
@@ -32,7 +32,7 @@ describe("ReadingListHOC", () => {
     });
 
     describe('on sucess', () => {
-      it('retrieves a list of saved articles on page load and stores them in state', (done) => {
+      it('GET retrieves a list of saved articles on page load and stores them in state', (done) => {
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -44,23 +44,8 @@ describe("ReadingListHOC", () => {
           });
         });
       });
-    });
-  });
 
-  describe('makes POST requests to the pocketClone api', () => {
-    let wrapper
-
-    beforeEach(() => {
-      moxios.install();
-      wrapper = mount(<ReadingListHOC />);
-    });
-
-    afterEach(() => {
-      moxios.uninstall();
-    });
-
-    describe('on sucess', () => {
-      it('retrieves a list of saved articles on page load and stores them in state', (done) => {
+      it('POST creates a new article and saves it in state', (done) => {
         moxios.wait(() => {
           const request = moxios.requests.at(0);
           request.respondWith({

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import './ReadingListHOC.css';
+import './ReadingListContainer.css';
 import axios from 'axios';
 
 import ReadingList from '../ReadingList/ReadingList'
 
-class ReadingListHOC extends Component {
+class ReadingListContainer extends Component {
   constructor() {
     super();
 
@@ -19,6 +19,10 @@ class ReadingListHOC extends Component {
 
   handleInputSubmit = (e, urlToAdd) => {
     this.makeApiPostRequest(urlToAdd);
+  }
+
+  handleArticleDelete = (id) => {
+    this.makeApiDeleteRequest(id);
   }
 
   makeApiGetRequest = () => {
@@ -38,15 +42,27 @@ class ReadingListHOC extends Component {
     });
   }
 
+  makeApiDeleteRequest = (id) => {
+    axios.delete(`https://protected-harbor-70609.herokuapp.com/api/articles/${id}`)
+    .then((response) => {
+      this.setState({ articles: this.state.articles.filter((item, index) => item.id !== id) })
+    }).catch((error) => {
+    });
+  }
+
   render() {
     const { articles } = this.state;
 
     return (
-      <div data-test="component-reading-list-hoc">
-        <ReadingList articles={ articles } handleInputSubmit={ this.handleInputSubmit }/>
+      <div data-test="component-reading-list-container">
+        <ReadingList
+          articles={ articles }
+          handleInputSubmit={ this.handleInputSubmit }
+          handleArticleDelete={ this.handleArticleDelete }
+        />
       </div>
     );
   }
 }
 
-export default ReadingListHOC;
+export default ReadingListContainer;
