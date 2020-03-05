@@ -13,8 +13,9 @@ describe('Article', () => {
 
     wrapper = shallow(
       <Article
-        url={ 'www.example.com' }
-        title={ 'an example website' }
+        url='www.example.com'
+        title='an example website'
+        isRead={ false }
       />);
   });
 
@@ -25,6 +26,17 @@ describe('Article', () => {
 
   it(`renders the delete button`, () => {
     let buttonElement = wrapper.find("[data-test='delete-button']");
+    expect(buttonElement.exists()).toBe(true);
+  });
+
+  it('renders a button to mark as read if currently unread', () => {
+    let buttonElement = wrapper.find("[type='mark-read-button']");
+    expect(buttonElement.exists()).toBe(true);
+  });
+
+  it('renders a button to mark as unread if currently read', () => {
+    wrapper.setProps({ isRead: true });
+    let buttonElement = wrapper.find("[type='mark-unread-button']");
     expect(buttonElement.exists()).toBe(true);
   });
 })

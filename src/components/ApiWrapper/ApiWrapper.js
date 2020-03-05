@@ -19,12 +19,18 @@ const withApiAccess = (WrappedComponent) => {
       return result.data
     }
 
+    async putRequest(url, postData) {
+      const result = await axios.put(url, postData)
+      return result.data
+    }
+
     render() {
       return(
         <WrappedComponent
           makeGetRequest={ this.getRequest }
           makePostRequest={ this.postRequest }
           makeDeleteRequest={ this.deleteRequest }
+          makePutRequest={ this.putRequest }
         />
       )
     }
