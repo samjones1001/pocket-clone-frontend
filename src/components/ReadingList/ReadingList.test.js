@@ -31,6 +31,12 @@ describe('ReadingList', () => {
     });
   }
 
+  const mockPutRequest = () => {
+    return new Promise((resolve, reject) => {
+      resolve({id: 1, url: 'www.example.com'})
+    })
+  }
+
   const flushPromises = () => new Promise(setImmediate);
 
   beforeEach(() => {
@@ -39,6 +45,7 @@ describe('ReadingList', () => {
         makeGetRequest={ mockGetRequest }
         makePostRequest={ mockPostRequest }
         makeDeleteRequest={ mockDeleteRequest }
+        makePutRequest={ mockPutRequest }
       />
     );
   })
@@ -85,6 +92,18 @@ describe('ReadingList', () => {
 
         const articleComponents = wrapper.find("[data-test='article-div']");
         expect(articleComponents.length).toBe(2);
+      });
+
+      it('PUT updates the isRead property of an article', async () => {
+        wrapper.update()
+        const buttonElement = wrapper.find("[data-test='mark-read-button']").first();
+        buttonElement.simulate('click');
+
+        await flushPromises();
+        wrapper.update();
+
+        const markUnreadButtonElements = wrapper.find("[data-test='mark-unread-button']");
+        expect(markUnreadButtonElements.length).toBe(1);
       });
     });
   });

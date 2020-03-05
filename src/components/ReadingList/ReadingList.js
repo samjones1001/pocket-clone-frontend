@@ -38,6 +38,26 @@ class ReadingList extends Component {
     });
   }
 
+  handleArticleUpdateIsRead = (id, newStatus) => {
+    this.props.makePutRequest(`https://protected-harbor-70609.herokuapp.com/api/articles/${id}`, {isRead: newStatus})
+    .then((response) => {
+      this.setState(state => {
+        const articles = this.state.articles.map((item) => {
+          if (item.id === id) {
+            item.isRead = newStatus
+            return item
+          } else {
+            return item
+          }
+        });
+
+        return articles;
+      });
+    }).catch((error) => {
+    });
+
+  }
+
   render() {
     const { articles } = this.state;
 
@@ -47,6 +67,7 @@ class ReadingList extends Component {
           <div data-test="article-div" key={index}>
             <Article
               handleDelete={ this.handleArticleDelete }
+              handleUpdateIsRead={ this.handleArticleUpdateIsRead }
               { ...article }
             />
           </div>
