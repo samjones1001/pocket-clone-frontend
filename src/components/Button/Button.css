@@ -1,0 +1,40 @@
+.btn {
+  border-radius: 0.5em;
+  color: black;
+  padding: 0.8em 1.5em;
+  margin: 0.2em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.9em;
+}
+
+.btn-mark-read {
+  background-color: white;
+  border: 2px solid #4CAF50;
+}
+
+.btn-mark-read:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-mark-unread, .btn-add {
+  background-color: white;
+  border: 2px solid #3F81BF;
+}
+
+.btn-mark-unread:hover, .btn-add:hover {
+  background-color: #3F81BF;
+  color: white;
+}
+
+.btn-delete {
+  background-color: white;
+  border: 2px solid #E85A4F;
+}
+
+.btn-delete:hover {
+  background-color: #E85A4F;
+  color: white;
+}

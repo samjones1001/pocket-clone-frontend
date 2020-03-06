@@ -17,7 +17,7 @@ describe('Article', () => {
     }
 
     wrapper = shallow(<Button { ...props }/>)
-    buttonComponent = wrapper.find("[data-test='test-button']");
+    buttonComponent = wrapper.find(".test-button");
   });
 
   it('renders without crashing', () => {
