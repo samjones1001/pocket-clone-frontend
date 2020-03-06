@@ -4,7 +4,7 @@ import './App.css';
 import { WrappedReadingList } from '../ReadingList/ReadingList';
 
 const App = () => {
-  return <div data-test="component-app"><WrappedReadingList /></div>;
+  return <div className="component-app"><WrappedReadingList /></div>;
 }
 
 export default App;

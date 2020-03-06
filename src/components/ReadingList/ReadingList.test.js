@@ -51,7 +51,7 @@ describe('ReadingList', () => {
   })
 
   it('renders without crashing', () => {
-    const readingListComponent = wrapper.find("[data-test='component-reading-list']");
+    const readingListComponent = wrapper.find(".component-reading-list");
     expect(readingListComponent.exists()).toBe(true);
   });
 
@@ -64,45 +64,45 @@ describe('ReadingList', () => {
     describe('on sucess', () => {
       it('GET retrieves a list of saved articles on page load and renders their details', () => {
         wrapper.update();
-        const articleComponents = wrapper.find("[data-test='article-div']");
+        const articleComponents = wrapper.find(".component-article");
 
         expect(articleComponents.length).toBe(3);
       });
 
       it('POST creates a new article and renders its details', async () => {
-        const inputElement = wrapper.find("[data-test='input-textfield']");
-        const buttonElement = wrapper.find("[data-test='input-button']");
+        const inputElement = wrapper.find(".input-textfield");
+        const buttonElement = wrapper.find(".btn-add");
         inputElement.simulate('change', { target: { value: '' }});
         buttonElement.simulate('click');
 
         await flushPromises();
         wrapper.update();
 
-        const articleComponents = wrapper.find("[data-test='article-div']");
+        const articleComponents = wrapper.find(".component-article");
         expect(articleComponents.length).toBe(4);
       });
 
       it('DELETE removes an article from the rendered list', async () => {
         wrapper.update();
-        const buttonElement = wrapper.find("[data-test='delete-button']").first();
+        const buttonElement = wrapper.find(".btn-delete").first();
         buttonElement.simulate('click');
 
         await flushPromises();
         wrapper.update();
 
-        const articleComponents = wrapper.find("[data-test='article-div']");
+        const articleComponents = wrapper.find(".component-article");
         expect(articleComponents.length).toBe(2);
       });
 
       it('PUT updates the isRead property of an article', async () => {
         wrapper.update()
-        const buttonElement = wrapper.find("[data-test='mark-read-button']").first();
+        const buttonElement = wrapper.find(".btn-mark-read").first();
         buttonElement.simulate('click');
 
         await flushPromises();
         wrapper.update();
 
-        const markUnreadButtonElements = wrapper.find("[data-test='mark-unread-button']");
+        const markUnreadButtonElements = wrapper.find(".btn-mark-unread");
         expect(markUnreadButtonElements.length).toBe(1);
       });
     });

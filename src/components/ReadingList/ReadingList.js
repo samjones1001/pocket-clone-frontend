@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
 import './ReadingList.css';
 
 import Article from '../Article/Article';
@@ -42,36 +43,31 @@ class ReadingList extends Component {
     this.props.makePutRequest(`https://protected-harbor-70609.herokuapp.com/api/articles/${id}`, {isRead: newStatus})
     .then((response) => {
       this.setState(state => {
-        const articles = this.state.articles.map((item) => {
-          if (item.id === id) {
-            item.isRead = newStatus
-            return item
-          } else {
-            return item
-          }
+        return  this.state.articles.map((item) => {
+          if (item.id === id) { item.isRead = newStatus }
+          return item
         });
-
-        return articles;
       });
     }).catch((error) => {
     });
-
   }
 
   render() {
     const { articles } = this.state;
 
     return (
-      <div data-test='component-reading-list'>
-        { articles.map((article, index) => (
-          <div data-test="article-div" key={index}>
-            <Article
-              handleDelete={ this.handleArticleDelete }
-              handleUpdateIsRead={ this.handleArticleUpdateIsRead }
-              { ...article }
-            />
-          </div>
-        ))}
+      <div className="component-reading-list">
+        <Grid container spacing={2}>
+          { articles.map((article, index) => (
+            <Grid item lg={4} md={6} xs={12}  className="article-grid-item" key={index}>
+              <Article
+                handleDelete={ this.handleArticleDelete }
+                handleUpdateIsRead={ this.handleArticleUpdateIsRead }
+                { ...article }
+              />
+            </Grid>
+          ))}
+        </Grid>
         <Input
           placeholderText="url"
           buttonText="Add To Reading List"

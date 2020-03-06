@@ -20,23 +20,23 @@ describe('Article', () => {
   });
 
   it('renders the passed title', () => {
-    let linkElement = wrapper.find("[data-test='article-link']");
+    let linkElement = wrapper.find(".article-card-text");
     expect(linkElement.text()).toEqual(title);
   });
 
   it(`renders the delete button`, () => {
-    let buttonElement = wrapper.find("[data-test='delete-button']");
+    let buttonElement = wrapper.find("[type='btn btn-delete']");
     expect(buttonElement.exists()).toBe(true);
   });
 
   it('renders a button to mark as read if currently unread', () => {
-    let buttonElement = wrapper.find("[type='mark-read-button']");
+    let buttonElement = wrapper.find("[type='btn btn-mark-read']");
     expect(buttonElement.exists()).toBe(true);
   });
 
   it('renders a button to mark as unread if currently read', () => {
     wrapper.setProps({ isRead: true });
-    let buttonElement = wrapper.find("[type='mark-unread-button']");
+    let buttonElement = wrapper.find("[type='btn btn-mark-unread']");
     expect(buttonElement.exists()).toBe(true);
   });
 })

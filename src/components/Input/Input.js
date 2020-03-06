@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Input.css';
 
+import Button from '../Button/Button';
+
 class Input extends Component {
   constructor(props) {
     super(props);
@@ -24,19 +26,19 @@ class Input extends Component {
     const { content } = this.state;
 
     return (
-      <div data-test="component-input">
+      <div className="component-input">
         <input
           type="text"
-          data-test="input-textfield"
           value={ content }
           placeholder={ placeholderText}
           onChange={ this.handleChange }
+          className="input-textfield"
         />
-        <button
-          type="button"
-          data-test="input-button"
+        <Button
+          text={ buttonText }
+          type="btn btn-add"
           onClick={ this.handleSubmit }
-        >{ buttonText }</button>
+        />
       </div>
     );
   }
