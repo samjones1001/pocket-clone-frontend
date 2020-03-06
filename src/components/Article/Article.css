@@ -1,4 +1,4 @@
-.article-card {
+.component-article {
   border-radius: 2em;
   height: 25vh;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -6,7 +6,7 @@
   background-color: #faf9f7
 }
 
-.article-card:hover {
+.component-article:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);
 }
 
