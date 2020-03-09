@@ -3,13 +3,14 @@ import { shallow } from 'enzyme';
 
 import Button from './Button';
 
-describe('Article', () => {
+describe('Button', () => {
   let wrapper;
   let onClick
   let buttonComponent
 
   beforeEach(() => {
     onClick = jest.fn()
+    
     const props = {
       type: 'test-button',
       text: 'test button',

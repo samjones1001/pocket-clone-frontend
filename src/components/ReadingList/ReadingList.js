@@ -7,18 +7,10 @@ import Input from '../Input/Input';
 import withApiAccess from '../ApiWrapper/ApiWrapper';
 
 class ReadingList extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      articles: []
-    }
-  }
-
   componentDidMount() {
     this.props.makeGetRequest('https://protected-harbor-70609.herokuapp.com/api/articles')
     .then((response) => {
-      this.setState({ articles: response })
+      this.props.setInitialState(response)
     }).catch((error) => {
     });
   }
@@ -26,7 +18,7 @@ class ReadingList extends Component {
   handleInputSubmit = (e, urlToAdd) => {
     this.props.makePostRequest('https://protected-harbor-70609.herokuapp.com/api/articles', {url: urlToAdd})
     .then((response) => {
-      this.setState({ articles: this.state.articles.concat(response) });
+      this.props.addToState(response)
     }).catch((error) => {
     });
   }
@@ -34,7 +26,7 @@ class ReadingList extends Component {
   handleArticleDelete = (id) => {
     this.props.makeDeleteRequest(`https://protected-harbor-70609.herokuapp.com/api/articles/${id}`)
     .then((response) => {
-      this.setState({ articles: this.state.articles.filter((item, index) => item.id !== id) });
+      this.props.deleteFromState(id)
     }).catch((error) => {
     });
   }
@@ -42,18 +34,13 @@ class ReadingList extends Component {
   handleArticleUpdateIsRead = (id, newStatus) => {
     this.props.makePutRequest(`https://protected-harbor-70609.herokuapp.com/api/articles/${id}`, {isRead: newStatus})
     .then((response) => {
-      this.setState(state => {
-        return  this.state.articles.map((item) => {
-          if (item.id === id) { item.isRead = newStatus }
-          return item
-        });
-      });
+      this.props.updateState(id, newStatus)
     }).catch((error) => {
     });
   }
 
   render() {
-    const { articles } = this.state;
+    const { articles } = this.props;
 
     return (
       <div className="component-reading-list">
