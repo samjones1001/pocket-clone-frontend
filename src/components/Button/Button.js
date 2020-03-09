@@ -2,12 +2,12 @@ import React from 'react';
 import './Button.css'
 
 const Button = (props) => {
-  const { text, onClick, type } = props;
+  const { icon, onClick, type } = props;
 
   return (
-    <button className={ type } onClick={ onClick }>
-      { text }
-    </button>
+    <div className={ type } onClick={ onClick }>
+      <i className={ icon }></i>
+    </div>
   )
 }
 

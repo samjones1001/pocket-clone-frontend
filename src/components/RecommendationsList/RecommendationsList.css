@@ -1,0 +1,21 @@
+.component-recommendations-list {
+  width: 101%;
+  margin-left: -0.6vw;
+}
+
+.element-recomendations {
+  background-color: #8E8D8A;
+  display: flex;
+  overflow-x: auto;
+  margin-bottom: 2vh;
+}
+
+.element-recomendations::-webkit-scrollbar {
+  display: none;
+}
+
+.element-recommendation {
+  background-color: #faf9f7;
+  min-width: 20em;
+  margin: 4px;
+}

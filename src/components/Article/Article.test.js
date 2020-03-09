@@ -24,6 +24,19 @@ describe('Article', () => {
     expect(linkElement.text()).toEqual(title);
   });
 
+  it('renders an abbreviated title if title length is greater that 116 characters', () => {
+    let longTitle = `A very long title for an article which would be spread arcross
+    multiple lines in the view and would look really messy`
+    let abbreviatedTitle = `A very long title for an article which would be spread arcross
+    multiple lines in the view and would look really...`
+
+    wrapper.setProps({ title: longTitle });
+    wrapper.update();
+
+    let linkElement = wrapper.find(".article-card-text");
+    expect(linkElement.text()).toEqual(abbreviatedTitle);
+  });
+
   it(`renders the delete button`, () => {
     let buttonElement = wrapper.find("[type='btn btn-delete']");
     expect(buttonElement.exists()).toBe(true);

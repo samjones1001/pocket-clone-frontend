@@ -1,3 +1,10 @@
 body {
   background-color: #EAE7DC;
 }
+
+.title-text {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  color: #8E8D8A;
+  padding-left: 1em;
+}

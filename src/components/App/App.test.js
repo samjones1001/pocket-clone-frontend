@@ -2,7 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import App from './App';
-import WrappedReadingList from '../ReadingList/ReadingList';
 
 describe("App", () => {
   let wrapper;
@@ -20,4 +19,9 @@ describe("App", () => {
     const readingListComponent = wrapper.find(".component-reading-list");
     expect(readingListComponent.exists()).toBe(true);
   });
+
+  it('renders a WrappedRecommendationsList component', () => {
+    const recommendationListComponent = wrapper.find(".component-recommendations-list");
+    expect(recommendationListComponent.exists()).toBe(true);
+  })
 });

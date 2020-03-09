@@ -22,7 +22,7 @@ class Input extends Component {
   }
 
   render() {
-    const { placeholderText, buttonText } = this.props;
+    const { placeholderText } = this.props;
     const { content } = this.state;
 
     return (
@@ -35,8 +35,8 @@ class Input extends Component {
           className="input-textfield"
         />
         <Button
-          text={ buttonText }
-          type="btn btn-add"
+          icon="fas fa-plus"
+          type="btn btn-upload"
           onClick={ this.handleSubmit }
         />
       </div>

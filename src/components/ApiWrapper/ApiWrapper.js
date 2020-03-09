@@ -31,6 +31,7 @@ const withApiAccess = (WrappedComponent) => {
           makePostRequest={ this.postRequest }
           makeDeleteRequest={ this.deleteRequest }
           makePutRequest={ this.putRequest }
+          { ...this.props }
         />
       )
     }

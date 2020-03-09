@@ -7,10 +7,15 @@ import Input from '../Input/Input';
 
 describe('ReadingList', () => {
   let wrapper;
+  let setInitialState;
+  let addToState;
+  let deleteFromState;
+  let updateState;
+
   const articles = [
-    {id: 1, url: 'www.example.com'},
-    {id: 2, url: 'www.anotherwebsite.com'},
-    {id: 3, url: 'www.someothersite.com'}
+    {id: 1, url: 'www.example.com', title: "Test Title"},
+    {id: 2, url: 'www.anotherwebsite.com', title: "Test Title 2"},
+    {id: 3, url: 'www.someothersite.com', title: "Test Title 3"}
   ];
 
   const mockGetRequest = () => {
@@ -40,12 +45,22 @@ describe('ReadingList', () => {
   const flushPromises = () => new Promise(setImmediate);
 
   beforeEach(() => {
+    setInitialState = jest.fn();
+    addToState = jest.fn();
+    deleteFromState = jest.fn();
+    updateState = jest.fn();
+
     wrapper = mount(
       <ReadingList
         makeGetRequest={ mockGetRequest }
         makePostRequest={ mockPostRequest }
         makeDeleteRequest={ mockDeleteRequest }
         makePutRequest={ mockPutRequest }
+        setInitialState={ setInitialState }
+        addToState={ addToState }
+        deleteFromState={ deleteFromState }
+        updateState={ updateState }
+        articles={ articles }
       />
     );
   })
@@ -69,17 +84,15 @@ describe('ReadingList', () => {
         expect(articleComponents.length).toBe(3);
       });
 
-      it('POST creates a new article and renders its details', async () => {
+      it('POST sends data to update state', async () => {
         const inputElement = wrapper.find(".input-textfield");
-        const buttonElement = wrapper.find(".btn-add");
+        const buttonElement = wrapper.find(".btn-upload");
         inputElement.simulate('change', { target: { value: '' }});
         buttonElement.simulate('click');
 
         await flushPromises();
-        wrapper.update();
 
-        const articleComponents = wrapper.find(".component-article");
-        expect(articleComponents.length).toBe(4);
+        expect(addToState).toHaveBeenCalled();
       });
 
       it('DELETE removes an article from the rendered list', async () => {
@@ -88,10 +101,8 @@ describe('ReadingList', () => {
         buttonElement.simulate('click');
 
         await flushPromises();
-        wrapper.update();
 
-        const articleComponents = wrapper.find(".component-article");
-        expect(articleComponents.length).toBe(2);
+        expect(deleteFromState).toHaveBeenCalled();
       });
 
       it('PUT updates the isRead property of an article', async () => {
@@ -100,10 +111,8 @@ describe('ReadingList', () => {
         buttonElement.simulate('click');
 
         await flushPromises();
-        wrapper.update();
 
-        const markUnreadButtonElements = wrapper.find(".btn-mark-unread");
-        expect(markUnreadButtonElements.length).toBe(1);
+        expect(updateState).toHaveBeenCalled();
       });
     });
   });
