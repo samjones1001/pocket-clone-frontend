@@ -37,6 +37,9 @@ class App extends Component {
   render() {
     return (
       <div className="component-app">
+        <WrappedRecommendationsList
+          addToState={ this.addToState }
+        />
         <WrappedReadingList
           articles={ this.state.articles }
           setInitialState={ this.setInitialState }
@@ -44,7 +47,6 @@ class App extends Component {
           deleteFromState={ this.deleteFromState }
           updateState={ this.updateState }
         />
-        <WrappedRecommendationsList/>
       </div>
     )
   }

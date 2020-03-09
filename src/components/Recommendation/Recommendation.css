@@ -1,0 +1,19 @@
+.recommendation-link {
+  text-decoration: none;
+  color: #5C656E;
+}
+
+.recommendation-card-left {
+  width: 85%;
+  float: left;
+  padding: 0.5em;
+}
+
+.recommendation-card-right {
+  width: 15%;
+  float:right;
+}
+
+.btn-add {
+  padding-top: 3.5vh;
+}

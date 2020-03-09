@@ -14,17 +14,24 @@ const Article = (props) => {
     handleUpdateIsRead(id, !isRead)
   }
 
+  const formatTitle = (title) => {
+    if (title.length > 116) {
+      return `${title.substring(0, 115)}...`;
+    }
+    return title;
+  }
+
   const updateButtonProps = () => {
     if (isRead) {
       return {
-        text: "Mark as unread",
+        icon: "far fa-check-circle fa-lg",
         onClick: onUpdateIsReadClicked,
         type: "btn btn-mark-unread"
       }
     }
 
     return {
-      text: "Mark as read",
+      icon: "far fa-check-circle fa-lg",
       onClick: onUpdateIsReadClicked,
       type: "btn btn-mark-read"
     }
@@ -33,20 +40,20 @@ const Article = (props) => {
   const buttonProps = updateButtonProps()
 
   return (
-
     <div className="component-article">
-      <div className="article-card-left">
-        <img src={ require('../../assets/book-placeholder.png') } alt="Article" className="article-img"/>
-      </div>
-      <div className="article-card-right">
-        <h4><a href={ url } className="article-card-text">{ title }</a></h4>
-        <div className="button-box">
-          <Button
-            text='Delete'
-            onClick={ onDeleteClicked }
-            type="btn btn-delete"
-          />
-          <Button { ...buttonProps }/>
+      <div className="article-card">
+        <div className="article-card-left">
+          <h4><a href={ url } className="article-card-text">{ formatTitle(title) }</a></h4>
+        </div>
+        <div className="article-card-right">
+          <div className="button-box">
+            <Button { ...buttonProps }/>
+            <Button
+              icon="fas fa-trash-alt fa-lg"
+              onClick={ onDeleteClicked }
+              type="btn btn-delete"
+            />
+          </div>
         </div>
       </div>
     </div>

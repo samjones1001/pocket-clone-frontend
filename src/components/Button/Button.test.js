@@ -10,10 +10,10 @@ describe('Button', () => {
 
   beforeEach(() => {
     onClick = jest.fn()
-    
+
     const props = {
       type: 'test-button',
-      text: 'test button',
+      icon: 'test button',
       onClick
     }
 
@@ -23,10 +23,6 @@ describe('Button', () => {
 
   it('renders without crashing', () => {
     expect(buttonComponent.exists()).toBe(true);
-  });
-
-  it(`renders the passed button text`, () => {
-    expect(buttonComponent.text()).toEqual('test button');
   });
 
   it('calls the passed function on click', () => {

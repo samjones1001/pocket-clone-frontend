@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './RecommendationsList.css';
 
 import withApiAccess from '../ApiWrapper/ApiWrapper';
+import Recommendation from '../Recommendation/Recommendation'
 
 class RecommendationsList extends Component {
   constructor(props) {
@@ -19,14 +20,31 @@ class RecommendationsList extends Component {
     });
   }
 
+  handleAddToList = (urlToAdd) => {
+    this.props.makePostRequest('https://protected-harbor-70609.herokuapp.com/api/articles', {url: urlToAdd})
+    .then((response) => {
+      this.props.addToState(response)
+    }).catch((error) => {
+    });
+  }
+
   render() {
     const { recommendations } = this.state;
 
     return (
       <div className="component-recommendations-list">
-        { recommendations.map((recommendation, index) => (
-          <div className="element-recommendation" key={index}>{ recommendation.title }</div>
-        ))}
+        <h3 className="title-text">Your Recommendations</h3>
+        <section className="element-recomendations">
+          { recommendations.map((recommendation, index) => (
+            <div className="element-recommendation" key={index}>
+              <Recommendation
+                title={ recommendation.title }
+                url={ recommendation.url }
+                handleAddToList={ this.handleAddToList }
+              />
+            </div>
+          ))}
+        </section>
       </div>
     )
   }

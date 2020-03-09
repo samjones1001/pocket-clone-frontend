@@ -13,9 +13,9 @@ describe('ReadingList', () => {
   let updateState;
 
   const articles = [
-    {id: 1, url: 'www.example.com'},
-    {id: 2, url: 'www.anotherwebsite.com'},
-    {id: 3, url: 'www.someothersite.com'}
+    {id: 1, url: 'www.example.com', title: "Test Title"},
+    {id: 2, url: 'www.anotherwebsite.com', title: "Test Title 2"},
+    {id: 3, url: 'www.someothersite.com', title: "Test Title 3"}
   ];
 
   const mockGetRequest = () => {
@@ -86,7 +86,7 @@ describe('ReadingList', () => {
 
       it('POST sends data to update state', async () => {
         const inputElement = wrapper.find(".input-textfield");
-        const buttonElement = wrapper.find(".btn-add");
+        const buttonElement = wrapper.find(".btn-upload");
         inputElement.simulate('change', { target: { value: '' }});
         buttonElement.simulate('click');
 

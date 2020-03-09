@@ -44,6 +44,7 @@ class ReadingList extends Component {
 
     return (
       <div className="component-reading-list">
+        <h3 className="title-text">Your Saved Articles</h3>
         <Grid container spacing={2}>
           { articles.map((article, index) => (
             <Grid item lg={4} md={6} xs={12}  className="article-grid-item" key={index}>
