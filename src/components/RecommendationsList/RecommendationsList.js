@@ -7,6 +7,7 @@ import Recommendation from '../Recommendation/Recommendation'
 class RecommendationsList extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       recommendations: []
     }
@@ -36,13 +37,12 @@ class RecommendationsList extends Component {
         <h3 className="title-text">Your Recommendations</h3>
         <section className="element-recomendations">
           { recommendations.map((recommendation, index) => (
-            <div className="element-recommendation" key={index}>
-              <Recommendation
-                title={ recommendation.title }
-                url={ recommendation.url }
-                handleAddToList={ this.handleAddToList }
-              />
-            </div>
+            <Recommendation
+              key={index}
+              title={ recommendation.title }
+              url={ recommendation.url }
+              handleAddToList={ this.handleAddToList }
+            />
           ))}
         </section>
       </div>

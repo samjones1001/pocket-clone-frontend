@@ -8,9 +8,6 @@ describe('Article', () => {
   let title;
 
   beforeEach(() => {
-    let url = 'www.example.com';
-    title = 'an example website'
-
     wrapper = shallow(
       <Article
         url='www.example.com'
@@ -21,7 +18,7 @@ describe('Article', () => {
 
   it('renders the passed title', () => {
     let linkElement = wrapper.find(".article-card-text");
-    expect(linkElement.text()).toEqual(title);
+    expect(linkElement.text()).toEqual('an example website');
   });
 
   it('renders an abbreviated title if title length is greater that 116 characters', () => {
@@ -35,6 +32,12 @@ describe('Article', () => {
 
     let linkElement = wrapper.find(".article-card-text");
     expect(linkElement.text()).toEqual(abbreviatedTitle);
+  });
+
+  it(`links to the passed url`, () => {
+    let articleUrl = wrapper.find(".article-card-text").props().href;
+
+    expect(articleUrl).toBe("www.example.com");
   });
 
   it(`renders the delete button`, () => {

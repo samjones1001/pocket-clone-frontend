@@ -49,35 +49,42 @@ class ReadingList extends Component {
   }
 
   setFilterType = (type) => (event) =>  {
-    this.setState(
-      { filterType: type },
-      this.filterArticles
-    );
+    this.setState({ filterType: type });
   }
 
   filterArticles = () => {
-    if (this.state.filterType === "none") {
-      return this.props.articles
-    } else if (this.state.filterType === "unread") {
-      return this.props.articles.filter((item, index) => item.isRead === false)
-    } else {
-      return this.props.articles.filter((item, index) => item.isRead === true)
+    if (this.state.filterType === "unread") {
+      return this.props.articles.filter((item, index) => item.isRead === false);
+    } else if ( this.state.filterType === "read" ) {
+      return this.props.articles.filter((item, index) => item.isRead === true);
     }
+    return this.props.articles;
   }
 
   render() {
-    const { filteredList } = this.state;
-
     return (
       <div className="component-reading-list">
         <div className="reading-list-header">
           <h3 className="title-text">Your Saved Articles</h3>
           <div className="reading-list-buttons">
-            <Button icon="fas fa-list fa-lg" type={`btn btn-filter ${this.state.filterType === "none" ? "btn-filter-selected" : ""}`} onClick={ this.setFilterType("none") }/>
-            <Button icon="fas fa-book fa-lg" type={`btn btn-filter ${this.state.filterType === "unread" ? "btn-filter-selected" : ""}`} onClick={ this.setFilterType("unread") }/>
-            <Button icon="fas fa-book-open fa-lg" type={`btn btn-filter ${this.state.filterType === "read" ? "btn-filter-selected" : ""}`} onClick={ this.setFilterType("read") }/>
+            <Button
+              icon="fas fa-list fa-lg"
+              type={`btn btn-filter ${this.state.filterType === "none" ? "btn-filter-selected" : ""}`}
+              onClick={ this.setFilterType("none") }
+            />
+            <Button
+              icon="fas fa-book fa-lg"
+              type={`btn btn-filter ${this.state.filterType === "unread" ? "btn-filter-selected" : ""}`}
+              onClick={ this.setFilterType("unread") }
+            />
+            <Button
+              icon="fas fa-book-open fa-lg"
+              type={`btn btn-filter ${this.state.filterType === "read" ? "btn-filter-selected" : ""}`}
+              onClick={ this.setFilterType("read") }
+            />
           </div>
         </div>
+
         <Grid container spacing={2}>
           { this.filterArticles().map((article, index) => (
             <Grid item lg={4} md={6} xs={12}  className="article-grid-item" key={index}>
@@ -89,6 +96,7 @@ class ReadingList extends Component {
             </Grid>
           ))}
         </Grid>
+
         <Input
           placeholderText="url"
           buttonText="Add To Reading List"

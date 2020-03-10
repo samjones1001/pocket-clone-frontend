@@ -26,19 +26,19 @@ describe('ReadingList', () => {
 
   const mockPostRequest = () => {
     return new Promise((resolve, reject) => {
-      resolve({id: 4, url: 'www.anothersite.com'})
+      resolve()
     });
   }
 
   const mockDeleteRequest = () => {
     return new Promise((resolve, reject) => {
-      resolve({id: 1, url: 'www.example.com'})
+      resolve()
     });
   }
 
   const mockPutRequest = () => {
     return new Promise((resolve, reject) => {
-      resolve({id: 1, url: 'www.example.com'})
+      resolve()
     })
   }
 
@@ -65,14 +65,16 @@ describe('ReadingList', () => {
     );
   })
 
-  it('renders without crashing', () => {
-    const readingListComponent = wrapper.find(".component-reading-list");
-    expect(readingListComponent.exists()).toBe(true);
-  });
-
   it('renders an Input component', () => {
     const inputComponent = wrapper.find(Input);
     expect(inputComponent.exists()).toBe(true);
+  });
+
+  it('retrieves a list of saved articles on page load and renders their details', () => {
+    wrapper.update();
+    const articleComponents = wrapper.find(".component-article");
+
+    expect(articleComponents.length).toBe(3);
   });
 
   it('can filter articles to display only unread', () => {
@@ -91,45 +93,34 @@ describe('ReadingList', () => {
     expect(articleComponents.length).toBe(1);
   });
 
-  describe('makes requests to the pocketClone api', () => {
-    describe('on sucess', () => {
-      it('GET retrieves a list of saved articles on page load and renders their details', () => {
-        wrapper.update();
-        const articleComponents = wrapper.find(".component-article");
+  it('can POST data and update state', async () => {
+    const inputElement = wrapper.find(".input-textfield");
+    const buttonElement = wrapper.find(".btn-upload");
+    inputElement.simulate('change', { target: { value: '' }});
+    buttonElement.simulate('click');
 
-        expect(articleComponents.length).toBe(3);
-      });
+    await flushPromises();
 
-      it('POST sends data to update state', async () => {
-        const inputElement = wrapper.find(".input-textfield");
-        const buttonElement = wrapper.find(".btn-upload");
-        inputElement.simulate('change', { target: { value: '' }});
-        buttonElement.simulate('click');
+    expect(addToState).toHaveBeenCalled();
+  });
 
-        await flushPromises();
+  it('can DELETE articles and remove them from state', async () => {
+    wrapper.update();
+    const buttonElement = wrapper.find(".btn-delete").first();
+    buttonElement.simulate('click');
 
-        expect(addToState).toHaveBeenCalled();
-      });
+    await flushPromises();
 
-      it('DELETE removes an article from the rendered list', async () => {
-        wrapper.update();
-        const buttonElement = wrapper.find(".btn-delete").first();
-        buttonElement.simulate('click');
+    expect(deleteFromState).toHaveBeenCalled();
+  });
 
-        await flushPromises();
+  it('can PUT updates to the isRead property of an article in state', async () => {
+    wrapper.update()
+    const buttonElement = wrapper.find(".btn-mark-read").first();
+    buttonElement.simulate('click');
 
-        expect(deleteFromState).toHaveBeenCalled();
-      });
+    await flushPromises();
 
-      it('PUT updates the isRead property of an article', async () => {
-        wrapper.update()
-        const buttonElement = wrapper.find(".btn-mark-read").first();
-        buttonElement.simulate('click');
-
-        await flushPromises();
-
-        expect(updateState).toHaveBeenCalled();
-      });
-    });
+    expect(updateState).toHaveBeenCalled();
   });
 });
