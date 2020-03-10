@@ -20,7 +20,11 @@ const Article = (props) => {
 
   return (
     <div className="component-article">
-      <h4><a href={ url } className="article-card-text">{ formatTitle(title) }</a></h4>
+      <h4>
+        <a href={ url } className="article-card-text" target="_blank" rel="noopener noreferrer">
+          { formatTitle(title) }
+        </a>
+      </h4>
       <div className="article-card-right">
         <div className="button-box">
           <Button

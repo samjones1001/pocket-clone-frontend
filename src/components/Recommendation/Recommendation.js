@@ -12,7 +12,7 @@ const Recommendation = (props) => {
 
   return (
     <div className="component-recommendation">
-      <a className="recommendation-link" href={ url }>{ title }</a>
+      <a className="recommendation-link" href={ url } target="_blank" rel="noopener noreferrer">{ title }</a>
       <Button icon="fas fa-plus" type=" btn btn-add" onClick={ onAddToListClicked } />
     </div>
   );
