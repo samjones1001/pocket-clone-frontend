@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './RecommendationsList.css';
 
+import Recommendation from '../Recommendation/Recommendation';
 import withApiAccess from '../ApiWrapper/ApiWrapper';
-import Recommendation from '../Recommendation/Recommendation'
+import baseUrl from '../../config';
 
 class RecommendationsList extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class RecommendationsList extends Component {
   }
 
   componentDidMount() {
-    this.props.makeGetRequest('https://protected-harbor-70609.herokuapp.com/api/recommendations')
+    this.props.makeGetRequest(`${baseUrl}/api/recommendations`)
     .then((response) => {
       this.setState({ recommendations: response})
     }).catch((error) => {
@@ -22,7 +23,7 @@ class RecommendationsList extends Component {
   }
 
   handleAddToList = (urlToAdd) => {
-    this.props.makePostRequest('https://protected-harbor-70609.herokuapp.com/api/articles', {url: urlToAdd})
+    this.props.makePostRequest(`${baseUrl}/api/articles`, {url: urlToAdd})
     .then((response) => {
       this.props.addToState(response)
     }).catch((error) => {

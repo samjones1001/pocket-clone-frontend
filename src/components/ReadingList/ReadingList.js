@@ -6,6 +6,7 @@ import Article from '../Article/Article';
 import Input from '../Input/Input';
 import Button from '../Button/Button'
 import withApiAccess from '../ApiWrapper/ApiWrapper';
+import baseUrl from '../../config';
 
 class ReadingList extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class ReadingList extends Component {
   }
 
   componentDidMount() {
-    this.props.makeGetRequest('https://protected-harbor-70609.herokuapp.com/api/articles')
+    this.props.makeGetRequest(`${baseUrl}/api/articles`)
     .then((response) => {
       this.props.setInitialState(response)
     }).catch((error) => {
@@ -25,7 +26,7 @@ class ReadingList extends Component {
   }
 
   handleInputSubmit = (e, urlToAdd) => {
-    this.props.makePostRequest('https://protected-harbor-70609.herokuapp.com/api/articles', {url: urlToAdd})
+    this.props.makePostRequest(`${baseUrl}/api/articles`, {url: urlToAdd})
     .then((response) => {
       this.props.addToState(response)
     }).catch((error) => {
@@ -33,7 +34,7 @@ class ReadingList extends Component {
   }
 
   handleArticleDelete = (id) => {
-    this.props.makeDeleteRequest(`https://protected-harbor-70609.herokuapp.com/api/articles/${id}`)
+    this.props.makeDeleteRequest(`${baseUrl}/api/articles/${id}`)
     .then((response) => {
       this.props.deleteFromState(id)
     }).catch((error) => {
@@ -41,7 +42,7 @@ class ReadingList extends Component {
   }
 
   handleArticleUpdateIsRead = (id, newStatus) => {
-    this.props.makePutRequest(`https://protected-harbor-70609.herokuapp.com/api/articles/${id}`, {isRead: newStatus})
+    this.props.makePutRequest(`${baseUrl}/api/articles/${id}`, {isRead: newStatus})
     .then((response) => {
       this.props.updateState(id, newStatus)
     }).catch((error) => {
