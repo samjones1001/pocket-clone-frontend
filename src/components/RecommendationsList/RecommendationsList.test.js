@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { RecommendationsList } from './RecommendationsList';
+import Recommendation from '../Recommendation/Recommendation';
 
 describe('ReadingList', () => {
   let wrapper;
@@ -17,8 +18,6 @@ describe('ReadingList', () => {
     });
   }
 
-  const flushPromises = () => new Promise(setImmediate);
-
   beforeEach(() => {
     wrapper = shallow(
       <RecommendationsList makeGetRequest={ mockGetRequest }/>);
@@ -30,7 +29,7 @@ describe('ReadingList', () => {
   });
 
   it('retrieves and renders a list of recommendations on rendering', () => {
-    const recommendationElements = wrapper.find(".element-recommendation");
+    const recommendationElements = wrapper.find(Recommendation);
     expect(recommendationElements.length).toBe(2);
   });
 });

@@ -1,5 +1,9 @@
+/* ------------------------ */
+/* RECOMMENDATION COMPONENT */
+/* ------------------------ */
+
 .component-recommendations-list {
-  width: 101%;
+  width: 100%;
   margin-left: -0.6vw;
 }
 
@@ -12,10 +16,4 @@
 
 .element-recomendations::-webkit-scrollbar {
   display: none;
-}
-
-.element-recommendation {
-  background-color: #faf9f7;
-  min-width: 20em;
-  margin: 4px;
 }

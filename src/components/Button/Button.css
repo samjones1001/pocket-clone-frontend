@@ -1,3 +1,7 @@
+/* ---------------------- */
+/* STANDARD BUTTON STYLES */
+/* ---------------------- */
+
 .btn {
   color: #5C656E;
   margin: 0.2em;
@@ -5,6 +9,10 @@
   text-decoration: none;
   display: inline-block;
 }
+
+/* ------------ */
+/* BUTTON TYPES */
+/* ------------ */
 
 .btn-mark-read:hover, .btn-mark-unread, .btn-add:hover {
   color: #4CAF50;
@@ -20,4 +28,8 @@
 
 .btn-upload:hover {
   color: #faf9f7
+}
+
+.btn-filter:hover, .btn-filter-selected {
+  color: #86929e;
 }

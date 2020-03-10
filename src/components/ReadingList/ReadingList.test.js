@@ -13,9 +13,9 @@ describe('ReadingList', () => {
   let updateState;
 
   const articles = [
-    {id: 1, url: 'www.example.com', title: "Test Title"},
-    {id: 2, url: 'www.anotherwebsite.com', title: "Test Title 2"},
-    {id: 3, url: 'www.someothersite.com', title: "Test Title 3"}
+    {id: 1, url: 'www.example.com', title: "Test Title", isRead: false },
+    {id: 2, url: 'www.anotherwebsite.com', title: "Test Title 2", isRead: false },
+    {id: 3, url: 'www.someothersite.com', title: "Test Title 3", isRead: true }
   ];
 
   const mockGetRequest = () => {
@@ -26,19 +26,19 @@ describe('ReadingList', () => {
 
   const mockPostRequest = () => {
     return new Promise((resolve, reject) => {
-      resolve({id: 4, url: 'www.anothersite.com'})
+      resolve()
     });
   }
 
   const mockDeleteRequest = () => {
     return new Promise((resolve, reject) => {
-      resolve({id: 1, url: 'www.example.com'})
+      resolve()
     });
   }
 
   const mockPutRequest = () => {
     return new Promise((resolve, reject) => {
-      resolve({id: 1, url: 'www.example.com'})
+      resolve()
     })
   }
 
@@ -65,55 +65,62 @@ describe('ReadingList', () => {
     );
   })
 
-  it('renders without crashing', () => {
-    const readingListComponent = wrapper.find(".component-reading-list");
-    expect(readingListComponent.exists()).toBe(true);
-  });
-
   it('renders an Input component', () => {
     const inputComponent = wrapper.find(Input);
     expect(inputComponent.exists()).toBe(true);
   });
 
-  describe('makes requests to the pocketClone api', () => {
-    describe('on sucess', () => {
-      it('GET retrieves a list of saved articles on page load and renders their details', () => {
-        wrapper.update();
-        const articleComponents = wrapper.find(".component-article");
+  it('retrieves a list of saved articles on page load and renders their details', () => {
+    wrapper.update();
+    const articleComponents = wrapper.find(".component-article");
 
-        expect(articleComponents.length).toBe(3);
-      });
+    expect(articleComponents.length).toBe(3);
+  });
 
-      it('POST sends data to update state', async () => {
-        const inputElement = wrapper.find(".input-textfield");
-        const buttonElement = wrapper.find(".btn-upload");
-        inputElement.simulate('change', { target: { value: '' }});
-        buttonElement.simulate('click');
+  it('can filter articles to display only unread', () => {
+    const filterUnreadButton = wrapper.find('.btn-filter').at(1);
+    filterUnreadButton.simulate('click')
+    const articleComponents = wrapper.find(".component-article");
 
-        await flushPromises();
+    expect(articleComponents.length).toBe(2);
+  });
 
-        expect(addToState).toHaveBeenCalled();
-      });
+  it('can filter articles to display only read', () => {
+    const filterReadButton = wrapper.find('.btn-filter').at(2);
+    filterReadButton.simulate('click')
+    const articleComponents = wrapper.find(".component-article");
 
-      it('DELETE removes an article from the rendered list', async () => {
-        wrapper.update();
-        const buttonElement = wrapper.find(".btn-delete").first();
-        buttonElement.simulate('click');
+    expect(articleComponents.length).toBe(1);
+  });
 
-        await flushPromises();
+  it('can POST data and update state', async () => {
+    const inputElement = wrapper.find(".input-textfield");
+    const buttonElement = wrapper.find(".btn-upload");
+    inputElement.simulate('change', { target: { value: '' }});
+    buttonElement.simulate('click');
 
-        expect(deleteFromState).toHaveBeenCalled();
-      });
+    await flushPromises();
 
-      it('PUT updates the isRead property of an article', async () => {
-        wrapper.update()
-        const buttonElement = wrapper.find(".btn-mark-read").first();
-        buttonElement.simulate('click');
+    expect(addToState).toHaveBeenCalled();
+  });
 
-        await flushPromises();
+  it('can DELETE articles and remove them from state', async () => {
+    wrapper.update();
+    const buttonElement = wrapper.find(".btn-delete").first();
+    buttonElement.simulate('click');
 
-        expect(updateState).toHaveBeenCalled();
-      });
-    });
+    await flushPromises();
+
+    expect(deleteFromState).toHaveBeenCalled();
+  });
+
+  it('can PUT updates to the isRead property of an article in state', async () => {
+    wrapper.update()
+    const buttonElement = wrapper.find(".btn-mark-read").first();
+    buttonElement.simulate('click');
+
+    await flushPromises();
+
+    expect(updateState).toHaveBeenCalled();
   });
 });

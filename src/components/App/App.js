@@ -13,9 +13,8 @@ class App extends Component {
     }
   }
 
-  setInitialState = (articles) => {
-    this.setState({ articles: articles })
-  }
+  setInitialState = (articles) => this.setState({ articles: articles });
+
 
   addToState = (article) => {
     this.setState({ articles: this.state.articles.concat(article) });

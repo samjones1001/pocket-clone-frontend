@@ -1,18 +1,34 @@
+/* ----------------- */
+/* ARTICLE COMPONENT */
+/* ----------------- */
+
 .component-article {
   border-radius: 2em;
   min-height: 15vh;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   background-color: #faf9f7;
+  padding: 0 1em 0 1em;
 }
 
 .component-article:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);
 }
 
-.article-card-left {
+/* ---------------------- */
+/* ARTICLE COMPONENT TEXT */
+/* ---------------------- */
+
+.article-card-text {
+  padding-top: 4vh;
+  text-decoration: none;
+  color: #5C656E;
   width: 80%;
   float: left;
 }
+
+/* ------------------------- */
+/* ARTICLE COMPONENT BUTTONS */
+/* ------------------------- */
 
 .article-card-right {
   width: 20%;
@@ -23,15 +39,4 @@
   position: absolute;
   padding-top: 6vh;
   padding-left: 1vw;
-}
-
-.article-card {
-  padding: 0 1em 0 1em;
-  width: 100%;
-  height: 15vh
-}
-
-.article-card-text {
-  text-decoration: none;
-  color: #5C656E;
 }

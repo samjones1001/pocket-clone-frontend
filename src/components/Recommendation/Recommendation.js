@@ -12,12 +12,8 @@ const Recommendation = (props) => {
 
   return (
     <div className="component-recommendation">
-      <div className="recommendation-card-left">
-        <a className="recommendation-link" href={ url }>{ title }</a>
-      </div>
-      <div>
-        <Button icon="fas fa-plus" type=" btn btn-add" onClick={ onAddToListClicked } />
-      </div>
+      <a className="recommendation-link" href={ url }>{ title }</a>
+      <Button icon="fas fa-plus" type=" btn btn-add" onClick={ onAddToListClicked } />
     </div>
   );
 }
