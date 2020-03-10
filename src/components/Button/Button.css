@@ -21,3 +21,7 @@
 .btn-upload:hover {
   color: #faf9f7
 }
+
+.btn-filter:hover, .btn-filter-selected {
+  color: #86929e;
+}

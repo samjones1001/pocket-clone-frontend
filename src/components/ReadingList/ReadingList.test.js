@@ -13,9 +13,9 @@ describe('ReadingList', () => {
   let updateState;
 
   const articles = [
-    {id: 1, url: 'www.example.com', title: "Test Title"},
-    {id: 2, url: 'www.anotherwebsite.com', title: "Test Title 2"},
-    {id: 3, url: 'www.someothersite.com', title: "Test Title 3"}
+    {id: 1, url: 'www.example.com', title: "Test Title", isRead: false },
+    {id: 2, url: 'www.anotherwebsite.com', title: "Test Title 2", isRead: false },
+    {id: 3, url: 'www.someothersite.com', title: "Test Title 3", isRead: true }
   ];
 
   const mockGetRequest = () => {
@@ -73,6 +73,22 @@ describe('ReadingList', () => {
   it('renders an Input component', () => {
     const inputComponent = wrapper.find(Input);
     expect(inputComponent.exists()).toBe(true);
+  });
+
+  it('can filter articles to display only unread', () => {
+    const filterUnreadButton = wrapper.find('.btn-filter').at(1);
+    filterUnreadButton.simulate('click')
+    const articleComponents = wrapper.find(".component-article");
+
+    expect(articleComponents.length).toBe(2);
+  });
+
+  it('can filter articles to display only read', () => {
+    const filterReadButton = wrapper.find('.btn-filter').at(2);
+    filterReadButton.simulate('click')
+    const articleComponents = wrapper.find(".component-article");
+
+    expect(articleComponents.length).toBe(1);
   });
 
   describe('makes requests to the pocketClone api', () => {
