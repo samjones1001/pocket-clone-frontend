@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import { RecommendationsList } from './RecommendationsList';
 import Recommendation from '../Recommendation/Recommendation';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import Loader from '../Loader/Loader';
 
 describe('ReadingList', () => {
   let wrapper;
@@ -40,5 +41,21 @@ describe('ReadingList', () => {
 
     const errorComponent = wrapper.find(ErrorMessage);
     expect(errorComponent.exists()).toBe(true)
-  })
+  });
+
+  it('renders a loader component while loading data', () => {
+    wrapper.setState({ loading: true });
+    wrapper.update();
+
+    const loaderComponent = wrapper.find(Loader);
+    expect(loaderComponent.exists()).toBe(true);
+  });
+
+  it('removes the loader component once loading is complete', () => {
+    wrapper.setState({ loading: false });
+    wrapper.update();
+
+    const loaderComponent = wrapper.find(Loader);
+    expect(loaderComponent.exists()).toBe(false);
+  });
 });

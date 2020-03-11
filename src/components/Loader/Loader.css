@@ -1,0 +1,13 @@
+/* ---------------- */
+/* LOADER COMPONENT */
+/* ---------------- */
+
+.component-loader {
+  width: 100%;
+  text-align: center;
+}
+
+.loader {
+  margin: 0 auto;
+  display: inline-block;
+}

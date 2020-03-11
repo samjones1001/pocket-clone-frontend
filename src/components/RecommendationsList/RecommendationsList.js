@@ -3,6 +3,8 @@ import './RecommendationsList.css';
 
 import Recommendation from '../Recommendation/Recommendation';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import Loader from '../Loader/Loader';
+
 import withApiAccess from '../ApiWrapper/ApiWrapper';
 import baseUrl from '../../config';
 
@@ -12,16 +14,17 @@ class RecommendationsList extends Component {
 
     this.state = {
       recommendations: [],
-      error: null
+      error: null,
+      loading: true
     }
   }
 
   componentDidMount() {
     this.props.makeGetRequest(`${baseUrl}/api/recommendations`)
     .then((response) => {
-      this.setState({ recommendations: response });
+      this.setState({ recommendations: response , loading: false});
     }).catch((error) => {
-      this.setState({ error: "fetching your recommendations"});
+      this.setState({ error: "fetching your recommendations", loading: false});
     });
   }
 
@@ -36,7 +39,7 @@ class RecommendationsList extends Component {
   }
 
   render() {
-    const { recommendations, error } = this.state;
+    const { recommendations, error, loading } = this.state;
 
     return (
       <div className="component-recommendations-list">
@@ -44,6 +47,10 @@ class RecommendationsList extends Component {
 
         { error &&
           <ErrorMessage errorType={ error }/>
+        }
+
+        { loading &&
+          <Loader />
         }
 
         <section className="element-recomendations">

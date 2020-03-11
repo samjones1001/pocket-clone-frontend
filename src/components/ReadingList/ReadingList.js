@@ -6,6 +6,7 @@ import Article from '../Article/Article';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import Loader from '../Loader/Loader';
 import withApiAccess from '../ApiWrapper/ApiWrapper';
 import baseUrl from '../../config';
 
@@ -15,7 +16,8 @@ class ReadingList extends Component {
 
     this.state = {
       filterType: "none",
-      error: null
+      error: null,
+      loading: true
     }
   }
 
@@ -23,6 +25,7 @@ class ReadingList extends Component {
     this.props.makeGetRequest(`${baseUrl}/api/articles`)
     .then((response) => {
       this.props.setInitialState(response)
+      this.setState( { loading: false });
     }).catch((error) => {
       this.setState({ error: "loading your articles"})
     });
@@ -42,10 +45,10 @@ class ReadingList extends Component {
     this.props.makeDeleteRequest(`${baseUrl}/api/articles/${id}`)
     .then((response) => {
       this.props.deleteFromState(id);
-      this.setState({ error: null });
     }).catch((error) => {
       this.setState({ error: "deleting your article"})
     });
+    this.setState({ error: null });
   }
 
   handleArticleUpdateIsRead = (id, newStatus) => {
@@ -97,6 +100,10 @@ class ReadingList extends Component {
 
         { this.state.error &&
           <ErrorMessage errorType={ this.state.error} />
+        }
+
+        { this.state.loading &&
+          <Loader />
         }
 
         <Grid container spacing={2}>
