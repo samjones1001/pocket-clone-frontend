@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 
 import { RecommendationsList } from './RecommendationsList';
 import Recommendation from '../Recommendation/Recommendation';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 describe('ReadingList', () => {
   let wrapper;
@@ -32,4 +33,12 @@ describe('ReadingList', () => {
     const recommendationElements = wrapper.find(Recommendation);
     expect(recommendationElements.length).toBe(2);
   });
+
+  it('renders an error message if an error occurs', () => {
+    wrapper.setState({ error: "some error message" });
+    wrapper.update();
+
+    const errorComponent = wrapper.find(ErrorMessage);
+    expect(errorComponent.exists()).toBe(true)
+  })
 });

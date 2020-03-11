@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './RecommendationsList.css';
 
 import Recommendation from '../Recommendation/Recommendation';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import withApiAccess from '../ApiWrapper/ApiWrapper';
 import baseUrl from '../../config';
 
@@ -10,15 +11,17 @@ class RecommendationsList extends Component {
     super(props)
 
     this.state = {
-      recommendations: []
+      recommendations: [],
+      error: null
     }
   }
 
   componentDidMount() {
     this.props.makeGetRequest(`${baseUrl}/api/recommendations`)
     .then((response) => {
-      this.setState({ recommendations: response})
+      this.setState({ recommendations: response });
     }).catch((error) => {
+      this.setState({ error: "fetching your recommendations"});
     });
   }
 
@@ -26,16 +29,23 @@ class RecommendationsList extends Component {
     this.props.makePostRequest(`${baseUrl}/api/articles`, {url: urlToAdd})
     .then((response) => {
       this.props.addToState(response)
+      this.setState({ error: null });
     }).catch((error) => {
+      this.setState({ error: "adding your article"});
     });
   }
 
   render() {
-    const { recommendations } = this.state;
+    const { recommendations, error } = this.state;
 
     return (
       <div className="component-recommendations-list">
         <h3 className="title-text">Your Recommendations</h3>
+
+        { error &&
+          <ErrorMessage errorType={ error }/>
+        }
+
         <section className="element-recomendations">
           { recommendations.map((recommendation, index) => (
             <Recommendation

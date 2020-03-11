@@ -4,7 +4,8 @@ import './ReadingList.css';
 
 import Article from '../Article/Article';
 import Input from '../Input/Input';
-import Button from '../Button/Button'
+import Button from '../Button/Button';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import withApiAccess from '../ApiWrapper/ApiWrapper';
 import baseUrl from '../../config';
 
@@ -14,6 +15,7 @@ class ReadingList extends Component {
 
     this.state = {
       filterType: "none",
+      error: null
     }
   }
 
@@ -22,30 +24,37 @@ class ReadingList extends Component {
     .then((response) => {
       this.props.setInitialState(response)
     }).catch((error) => {
+      this.setState({ error: "loading your articles"})
     });
   }
 
   handleInputSubmit = (e, urlToAdd) => {
     this.props.makePostRequest(`${baseUrl}/api/articles`, {url: urlToAdd})
     .then((response) => {
-      this.props.addToState(response)
+      this.props.addToState(response);
+      this.setState({ error: null });
     }).catch((error) => {
+      this.setState({ error: "uploading your article"})
     });
   }
 
   handleArticleDelete = (id) => {
     this.props.makeDeleteRequest(`${baseUrl}/api/articles/${id}`)
     .then((response) => {
-      this.props.deleteFromState(id)
+      this.props.deleteFromState(id);
+      this.setState({ error: null });
     }).catch((error) => {
+      this.setState({ error: "deleting your article"})
     });
   }
 
   handleArticleUpdateIsRead = (id, newStatus) => {
     this.props.makePutRequest(`${baseUrl}/api/articles/${id}`, {isRead: newStatus})
     .then((response) => {
-      this.props.updateState(id, newStatus)
+      this.props.updateState(id, newStatus);
+      this.setState({ error: null });
     }).catch((error) => {
+      this.setState({ error: "updating your article"})
     });
   }
 
@@ -85,6 +94,10 @@ class ReadingList extends Component {
             />
           </div>
         </div>
+
+        { this.state.error &&
+          <ErrorMessage errorType={ this.state.error} />
+        }
 
         <Grid container spacing={2}>
           { this.filterArticles().map((article, index) => (

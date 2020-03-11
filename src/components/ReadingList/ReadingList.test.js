@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme';
 import { ReadingList } from './ReadingList';
 import Article from '../Article/Article';
 import Input from '../Input/Input';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 describe('ReadingList', () => {
   let wrapper;
@@ -115,7 +116,7 @@ describe('ReadingList', () => {
   });
 
   it('can PUT updates to the isRead property of an article in state', async () => {
-    wrapper.update()
+    wrapper.update();
     const buttonElement = wrapper.find(".btn-mark-read").first();
     buttonElement.simulate('click');
 
@@ -123,4 +124,12 @@ describe('ReadingList', () => {
 
     expect(updateState).toHaveBeenCalled();
   });
+
+  it('renders an error message if an error occurs', () => {
+    wrapper.setState({ error: "some error message" });
+    wrapper.update();
+
+    const errorComponent = wrapper.find(ErrorMessage);
+    expect(errorComponent.exists()).toBe(true)
+  })
 });

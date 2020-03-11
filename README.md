@@ -26,5 +26,5 @@ To start the application in test mode, navigate to the root directory of the pro
 
 ## Tests
 
-Prior to running the tests please ensure that you have installed all required dependencies as per the instructions in the [Setup and Running section](#setup-and-running).
+Prior to running the tests please ensure that you have installed all required dependencies as per the instructions in the [Setup and Running section](#setup-and-running) section.
 Once dependencies are installed, the tests can be run from the root directory of the project with `npm run test`
