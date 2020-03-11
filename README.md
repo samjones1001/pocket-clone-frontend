@@ -2,7 +2,7 @@
 
 ### Live Version [Here](http://pocket-clone.surge.sh/)
 
-A react application for interacting with my [PocketClone API](https://github.com/samjones1001/pocket-clone-backend)
+A react application for interacting with [PocketClone API](https://github.com/samjones1001/pocket-clone-backend)
 
 ## Setup and Running
 
